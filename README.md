@@ -1,2 +1,2 @@
 ﻿# RSSReaderReact-Redux
-Simple RSS Feeder using React & Redux
+Simple RSS Feed Reader using React & Redux
