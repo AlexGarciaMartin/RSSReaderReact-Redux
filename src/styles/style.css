@@ -1,0 +1,182 @@
+.wrapper {
+    display: flex;
+    flex-flow: row wrap;
+    font-weight: bold;
+    text-align: center;
+}
+
+.wrapper>* {
+    padding: 10px;
+    flex: 1 100%;
+}
+
+.header {
+    border: solid 2px;
+    border-color: rgb(212, 211, 211);
+    background-image: url('http://www.twitrcovers.com/wp-content/uploads/2014/06/City-l.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: top;
+    text-align: center;
+    background-color: rgb(255, 255, 255);
+    font-family: 'Amatic SC', cursive;
+    font-size: 40px;
+    color: #FFFFFF;
+    text-shadow: 0 0 5px #FFF, 0 0 10px #FFF, 0 0 15px #FFF, 0 0 20px #ff0000, 0 0 30px #ff0000, 0 0 40px #ff0000, 0 0 55px #ff0000, 0 0 75px #ff0000;
+    /* animation: flicker 1.5s infinite alternate; */
+}
+
+/* Si has encontrado esto, es un código oculto que sirve para hacer parpadear el neón, y queda muy cool 😎 */
+@keyframes flicker {
+    0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% {
+        text-shadow: 0 0 5px #FFF, 0 0 10px #FFF, 0 0 15px #FFF, 0 0 20px #ff0000, 0 0 30px #ff0000, 0 0 40px #ff0000, 0 0 55px #ff0000, 0 0 75px #ff0000;
+    }
+    20%, 24%, 55% {
+        text-shadow: none;
+        box-shadow: none;
+    }
+}
+
+.footer {
+    background: lightgreen;
+}
+
+.button {
+    text-align: center;
+    color: #FFFFFF;
+    font-size: 60px;
+    text-shadow: 0 0 5px #FFF, 0 0 10px #FFF, 0 0 15px #FFF, 0 0 20px #ff0000, 0 0 30px #ff0000, 0 0 40px #ff0000, 0 0 55px #ff0000, 0 0 75px #ff0000;
+    cursor: pointer;
+    animation: flicker 1.5s infinite alternate;
+}
+
+.arrow{
+    bottom: 0;
+    left: 50%;
+    margin-left:-20px;
+    width: 40px;
+    height: 40px;
+    transform: translate(200px);
+    position: relative;
+}
+.bounce {
+	-moz-animation: bounce 3s infinite;
+	-webkit-animation: bounce 3s infinite;
+	animation: bounce 3s infinite;
+}
+@-moz-keyframes bounce {
+  0%, 20%, 50%, 80%, 100% {
+    -moz-transform: translateX(0);
+    transform: translateX(0);
+  }
+  40% {
+    -moz-transform: translateY(-30px);
+    transform: translateY(-30px);
+  }
+  60% {
+    -moz-transform: translateY(-15px);
+    transform: translateY(-15px);
+  }
+}
+@-webkit-keyframes bounce {
+  0%, 20%, 50%, 80%, 100% {
+    -webkit-transform: translateY(0);
+    transform: translateY(0);
+  }
+  40% {
+    -webkit-transform: translateY(-30px);
+    transform: translateY(-30px);
+  }
+  60% {
+    -webkit-transform: translateY(-15px);
+    transform: translateY(-15px);
+  }
+}
+@keyframes bounce {
+  0%, 20%, 50%, 80%, 100% {
+    -moz-transform: translateY(0);
+    -ms-transform: translateY(0);
+    -webkit-transform: translateY(0);
+    transform: translateY(0);
+  }
+  40% {
+    -moz-transform: translateY(-30px);
+    -ms-transform: translateY(-30px);
+    -webkit-transform: translateY(-30px);
+    transform: translateY(-30px);
+  }
+  60% {
+    -moz-transform: translateY(-15px);
+    -ms-transform: translateY(-15px);
+    -webkit-transform: translateY(-15px);
+    transform: translateY(-15px);
+  }
+}
+
+/* .button:hover {
+    background: #0AF612;;
+    background-image: -webkit-linear-gradient(top, #D00000, #F60000);
+    background-image: -moz-linear-gradient(top, #D00000, #F60000);
+    background-image: -ms-linear-gradient(top, #D00000, #F60000);
+    background-image: -o-linear-gradient(top, #D00000, #F60000);
+    background-image: linear-gradient(to bottom, #D00000, #F60000);
+    text-decoration: none;
+} */
+
+.css-input {
+    border-color: #cccccc;
+    padding: 16px 80px;
+    font-size: 16px;
+    width: 20vw;
+    text-align: center;
+    border-radius: 31px;
+    border-width: 3px;
+    border-style: solid;
+    box-shadow: 1px 0px 19px 0px rgba(42, 42, 42, .75);
+}
+
+.css-input:focus {
+    outline: none;
+}
+
+.main {
+    border: solid 2px;
+    border-color: rgb(212, 211, 211);
+    text-align: center;
+}
+
+.aside-1 {
+    border: solid 2px;
+    border-color: rgb(212, 211, 211);
+    text-align: center;
+}
+
+.aside-2 {}
+
+@media all and (min-width: 600px) {
+    .aside {
+        flex: 1 0 0;
+    }
+}
+
+@media all and (min-width: 800px) {
+    .main {
+        flex: 3 0px;
+    }
+    .aside-1 {
+        order: 1;
+    }
+    .main {
+        order: 2;
+    }
+    .aside-2 {
+        order: 3;
+    }
+    .footer {
+        order: 4;
+    }
+}
+
+body {
+    padding: 2em;
+}
