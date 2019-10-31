@@ -1,7 +1,6 @@
 ﻿import React, { Component } from "react";
 import { Switch, Route} from "react-router";
-
-import ProductList from "./components/views/ProductList";
+import main from "./components/views/main";
 
 class App extends Component {
     constructor(props) {
@@ -10,7 +9,7 @@ class App extends Component {
     render() {
         return (
                 <Switch>
-                    <Route exact path="/" component={ProductList} />
+                    <Route exact path="/" component={main} />
                 </Switch>
         )
     }

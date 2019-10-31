@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
-import { Button, Glyphicon, FormControl, Form, InputGroup } from 'react-bootstrap';
 import { connect } from 'react-redux'
 import { bindActionCreators } from "redux";
 import * as uiActionCreators from '../../store/ui';
 import * as RSSParser from 'rss-parser';
 import '../../styles/style.css';
+import { type } from 'os';
 let parser = new RSSParser();
 const CORS_PROXY = "https://cors-anywhere.herokuapp.com/"
+
 
 class ProductList extends Component {
   constructor() {
@@ -21,30 +22,28 @@ class ProductList extends Component {
   }
 
   render() {
+
     return (
       <React.Fragment>
         <div className="wrapper">
           <header className="header">
-          <a href="https://github.com/AlexGarciaMartin/RSSReaderReact-Redux"><i class="fab fa-github" style={{float: 'right'}}></i></a>
+            <a href="https://github.com/AlexGarciaMartin/RSSReaderReact-Redux" className="reset-a"><i class="fab fa-github iconClass" style={{ float: 'right' }}></i></a>
             <h2>Lector de RSS</h2>
             <h3>Añade una URL de Feed:</h3>
             <input className="css-input"
               type="text"
-              placeholder="ex: http://estaticos.elmundo.es/elmundo/rss/espana.xml"
+              placeholder="ex: https://www.eldiario.es/rss/"
               value={this.state.rssPages}
-              onChange={this.onChangeText} 
+              onChange={this.onChangeText}
               required
-              />
-            <div>
+            />
+            <div>{this.state.rssPages.length > 0 &&
               <span className="button"
                 type="button"
                 onClick={() => this.addToRSS()}>
                 +
               </span>
-              <div class="arrow bounce">
-                <img width="40" height="40" alt="" 
-                src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4NCjwhLS0gR2VuZXJhdG9yOiBBZG9iZSBJbGx1c3RyYXRvciAxNi4wLjAsIFNWRyBFeHBvcnQgUGx1Zy1JbiAuIFNWRyBWZXJzaW9uOiA2LjAwIEJ1aWxkIDApICAtLT4NCjwhRE9DVFlQRSBzdmcgUFVCTElDICItLy9XM0MvL0RURCBTVkcgMS4xLy9FTiIgImh0dHA6Ly93d3cudzMub3JnL0dyYXBoaWNzL1NWRy8xLjEvRFREL3N2ZzExLmR0ZCI+DQo8c3ZnIHZlcnNpb249IjEuMSIgaWQ9IkxheWVyXzEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHg9IjBweCIgeT0iMHB4IiB3aWR0aD0iNTEycHgiIGhlaWdodD0iNTEycHgiIHZpZXdCb3g9IjAgMCA1MTIgNTEyIiBlbmFibGUtYmFja2dyb3VuZD0ibmV3IDAgMCA1MTIgNTEyIiB4bWw6c3BhY2U9InByZXNlcnZlIj4NCjxwYXRoIGZpbGw9IiNGRkZGRkYiIGQ9Ik0yOTMuNzUxLDQ1NS44NjhjLTIwLjE4MSwyMC4xNzktNTMuMTY1LDE5LjkxMy03My42NzMtMC41OTVsMCwwYy0yMC41MDgtMjAuNTA4LTIwLjc3My01My40OTMtMC41OTQtNzMuNjcyICBsMTg5Ljk5OS0xOTBjMjAuMTc4LTIwLjE3OCw1My4xNjQtMTkuOTEzLDczLjY3MiwwLjU5NWwwLDBjMjAuNTA4LDIwLjUwOSwyMC43NzIsNTMuNDkyLDAuNTk1LDczLjY3MUwyOTMuNzUxLDQ1NS44Njh6Ii8+DQo8cGF0aCBmaWxsPSIjRkZGRkZGIiBkPSJNMjIwLjI0OSw0NTUuODY4YzIwLjE4LDIwLjE3OSw1My4xNjQsMTkuOTEzLDczLjY3Mi0wLjU5NWwwLDBjMjAuNTA5LTIwLjUwOCwyMC43NzQtNTMuNDkzLDAuNTk2LTczLjY3MiAgbC0xOTAtMTkwYy0yMC4xNzgtMjAuMTc4LTUzLjE2NC0xOS45MTMtNzMuNjcxLDAuNTk1bDAsMGMtMjAuNTA4LDIwLjUwOS0yMC43NzIsNTMuNDkyLTAuNTk1LDczLjY3MUwyMjAuMjQ5LDQ1NS44Njh6Ii8+DQo8L3N2Zz4=" />
-              </div>
+            }
             </div>
           </header>
           <aside className="aside aside-1"><h2>Canales añadidos:</h2>
@@ -65,23 +64,28 @@ class ProductList extends Component {
 
   addToRSS = () => {
     this.props.addRss(this.state.rssPages)
+    let source;
     let feed = parser.parseURL(CORS_PROXY + this.state.rssPages, (err, feed) => {
       let news = document.querySelector('.news');
-      feed !== undefined ?
+      if(feed !== undefined)
         feed.items.map((entry) => {
           console.log(entry)
-          // console.log(this.state.newsPanel)
-          this.setState({ newsPanelNumber: this.state.newsPanel.push(<div><h4>{entry.title}</h4><a href={entry.link}>{entry.link}</a></div>) })
-        }) : ''
+          if (entry.enclosure != undefined) {
+            source = entry.enclosure.url
+          } else {
+            source = ""
+          };
+          this.setState({ newsPanelNumber: this.state.newsPanel.push(<React.Fragment><div><h4>{entry.title}</h4><img src={source}></img></div><div><a href={entry.link}>{entry.link}</a></div></React.Fragment>) })
+        })
     })
     this.createRssFavourites();
     return feed;
   }
 
   createRssFavourites = () => {
-    let favouriteRSS = <li id="id-favourites" >{this.state.rssPages} </li>
-    let ele = <button data-input="#id-favourites" className="delete" onClick={(e) => this.deleteRssFavourites(e)}>Borrar item</button>
-    this.state.favourites.push(favouriteRSS, ele);
+    let ele = <button data-input="#id-favourites" className="delete" onClick={(e) => this.deleteRssFavourites(e)}>Eliminar canal</button>
+    let favouriteRSS = <li id="id-favourites" ><a>{this.state.rssPages}</a>{ele}</li>;
+    this.state.favourites.push(<div>{favouriteRSS}</div>);
   }
 
   deleteRssFavourites = (e) => {
