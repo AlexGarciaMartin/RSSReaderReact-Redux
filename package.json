@@ -11,7 +11,7 @@
     "loadjs": "^3.5.5",
     "powerbi-client": "^2.7.3",
     "react": "^16.0.0",
-    "react-adal": "^0.4.22",
+    "react-adal": "^0.5.1",
     "react-appinsights": "^2.0.2",
     "react-bootstrap": "^0.31.5",
     "react-date-range": "^0.9.4",
